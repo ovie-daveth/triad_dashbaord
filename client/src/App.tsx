@@ -1,24 +1,18 @@
-import { useState } from 'react'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 
+
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Button } from './components/ui/button'
+import LandingPage from './pages'
+import CreatePosts from './pages/CreatePosts'
 
 function App() {
 
   return (
-   <div className='text-red-600'>
-    <Button variant={"secondary"}>Press me</Button>
-    <Popover>
-      <PopoverTrigger>Open</PopoverTrigger>
-      <PopoverContent>Place content for the popover here.</PopoverContent>
-    </Popover>
+  <Routes>
+    <Route path='/' element={<LandingPage />} />
+    <Route path='/create' element={<CreatePosts />} />
+  </Routes>
 
-   </div>
   )
 }
 
