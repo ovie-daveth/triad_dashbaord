@@ -10,7 +10,7 @@ function App() {
   return (
   <Routes>
     <Route path='/' element={<LandingPage />} />
-    <Route path='/create' element={<CreatePosts />} />
+    <Route path='/posts/create' element={<CreatePosts />} />
   </Routes>
 
   )
