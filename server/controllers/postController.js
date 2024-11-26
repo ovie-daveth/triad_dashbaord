@@ -41,6 +41,18 @@ const PostController = {
       }
     },
 
+    
+    // Get all posts
+    getPostByUserId: async (req, res) => {
+      try {
+        const post = await findOnePost(req.params.id);
+        return response.success(res, "post fetched successfully", post);
+      } catch (error) {
+        console.error(error);
+        return response.error(res, "Failed to fetch user");
+      }
+    },
+
 
   // Update a post
   updatePost: async (req, res) => {

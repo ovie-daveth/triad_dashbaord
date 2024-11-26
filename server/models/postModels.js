@@ -17,6 +17,12 @@ export const findOnePost = async (id) => {
   });
 };
 
+export const findOnePostByUserId = async (id) => {
+  return await prisma.post.findUnique({
+    where: { userId: parseInt(id) }, 
+  });
+};
+
 export const updatePost = async (id, data) => {
   return await prisma.post.update({
     where: { id: parseInt(id) },

@@ -17,10 +17,7 @@ const prisma = new PrismaClient();
   // Fetch user by ID
   export const findById = async (id) => {
     return await prisma.user.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        posts: true,
-      },
+      where: { id: parseInt(id) }
     });
   }
 
