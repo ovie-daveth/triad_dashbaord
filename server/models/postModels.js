@@ -1,36 +1,31 @@
-const { PrismaClient } = require("@prisma/client");
-
-
+// postModel.js (example)
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const PostModel = {
-  // Create a post
-  create: async (data) => {
-    return await prisma.post.create({ data });
-  },
-
-  // Fetch all posts
-  findAll: async () => {
-    return await prisma.post.findMany({
-      include: { user: true },
-    });
-  },
-
-  // Update a post
-  update: async (id, data) => {
-    return await prisma.post.update({
-      where: { id: parseInt(id) },
-      data,
-    });
-  },
-
-  // Delete a post
-  delete: async (id) => {
-    return await prisma.post.delete({
-      where: { id: parseInt(id) },
-    });
-  },
+export const createPost = async (data) => {
+  return await prisma.post.create({ data });
 };
 
-module.exports = PostModel;
+export const findAllPosts = async () => {
+  return await prisma.post.findMany();
+};
+
+export const findOnePost = async (id) => {
+  return await prisma.post.findUnique({
+    where: { id: parseInt(id) }, // Ensure the ID is parsed correctly
+  });
+};
+
+export const updatePost = async (id, data) => {
+  return await prisma.post.update({
+    where: { id: parseInt(id) },
+    data,
+  });
+};
+
+export const deletePost = async (id) => {
+  return await prisma.post.delete({
+    where: { id: parseInt(id) },
+  });
+};

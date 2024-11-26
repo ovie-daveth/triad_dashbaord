@@ -1,11 +1,11 @@
-const express = require("express");
-const { PrismaClient } = require("@prisma/client");
-const cors = require("cors");
+import express, { json } from "express";
+import cors from "cors";
+import postRoutes from "./routes/postRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 const app = express();
-const prisma = new PrismaClient();
 
-app.use(express.json());
+app.use(json());
 app.use(cors());
 
 app.use("/api/posts", postRoutes);
