@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Headers = () => {
   return (
-    <div className='py-2 flex items-center justify-between'>
+    <div className='py-2 flex items-center justify-between fixed top-3 left-0 right-0 px-5 bg-primary-foreground'>
         <div>
             <Link to="/" className='text-xl lg:text-3xl xl:text-4xl font-bold'>Triad</Link>
 

@@ -4,8 +4,8 @@ import React from 'react'
 
 const MainLayout = ({children}: {children: React.ReactNode}) => {
   return (
-    <div className='px-28 py-10 '>
-        <div><Headers /></div>
+    <div className='lg:px-28 lg:py-10 md:px-24 md:py-8 px-5 py-2  '>
+        <div className='mb-20'><Headers /></div>
         <div className='mt-5'><BreadcrumbWithCustomSeparator /></div>
         <div className='mt-10'> {children}</div>
     </div>
