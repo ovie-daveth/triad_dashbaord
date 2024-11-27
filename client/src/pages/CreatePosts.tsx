@@ -100,9 +100,9 @@ const CreatePostForm = () => {
   });
 
   // Handle form submission
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data); // Handle form data here
-    // Here, you can make an API call to submit the data
+    
   };
 
   return (
