@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Modal from "@/components/image_modal";
+import { IKImage } from 'imagekitio-react';
 
 // Define the schema for validation using zod
 const formSchema = z.object({
@@ -98,6 +99,7 @@ const CreatePostForm = () => {
             spelling detected by our proof readers will be deducted from
             payment.
           </p>
+         
         </div>
         <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[60%]">
           <Form {...form}>
