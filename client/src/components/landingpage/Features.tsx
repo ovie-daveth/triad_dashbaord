@@ -18,35 +18,35 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Learning Gamification",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "This is our core feature. We seek to make the learning and practice of questions easy and fun. Science tells us learning happens faster in a fun environment",
     image: image4,
   },
   {
     title: "Intuitive user interface",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Our user interface is slick and easy to use and naigate. Minimalistic",
     image: image3,
   },
   {
     title: "AI-Powered insights",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Our powerful AI can give you hints on any questions before answering. This helps braoden you clues",
     image: image,
   },
 ];
 
 const featureList: string[] = [
   "Dark/Light theme",
+  "LeaderBoard",
   "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
+  "Hints",
+  "AI explanation",
+  "Gamification",
+  "Learning reels",
+  "Community chat",
+  "Slick user interfcae",
 ];
 
 export const Features = () => {

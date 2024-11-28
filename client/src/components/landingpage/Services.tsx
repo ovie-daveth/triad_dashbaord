@@ -10,21 +10,21 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Code Collaboration",
+    title: "Practice Questions",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "We provide past questions upto 10 years for you to practice for your exams or simply to boost your learning",
     icon: <ChartIcon />,
   },
   {
-    title: "Project Management",
+    title: "Seek solutions",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "We offer a platform to help you get the opinions of millions of student on a question or idea",
     icon: <WalletIcon />,
   },
   {
-    title: "Task Automation",
+    title: "Certifications",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "We give certification to anyone who was able to finish our personalised exams, to test their learning journey",
     icon: <MagnifierIcon />,
   },
 ];
@@ -42,8 +42,7 @@ export const Services = () => {
           </h2>
 
           <p className="text-muted-foreground text-xl mt-4 mb-8 ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-            dolor.
+            We listen to feedbacks and update our products at interval based on users feedback
           </p>
 
           <div className="flex flex-col gap-8">

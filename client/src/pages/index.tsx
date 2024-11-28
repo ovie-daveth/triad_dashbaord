@@ -12,8 +12,6 @@ import { ScrollToTop } from "@/components/landingpage/ScrollToTop";
 import { Services } from "@/components/landingpage/Services";
 import { Sponsors } from "@/components/landingpage/Sponsors";
 import { Team } from "@/components/landingpage/Team";
-import { Testimonials } from "@/components/landingpage/Testimonials";
-
 function LandingPage() {
   return (
     <div>
@@ -26,7 +24,7 @@ function LandingPage() {
       <Features />
       <Services />
       <Cta />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Team />
       <Pricing />
       <Newsletter />

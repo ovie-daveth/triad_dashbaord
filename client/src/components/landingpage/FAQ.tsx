@@ -13,36 +13,37 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free ChadcnUI template.",
+    question: "What is the purpose of this app?",
+    answer:
+      "This app is designed to help users learn and practice past questions and answers with the assistance of AI, which provides hints and detailed explanations for better understanding.",
     value: "item-1",
   },
   {
-    question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+    question: "Can I use the app offline?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "While you can access previously downloaded content offline, AI-powered hints and explanations require an internet connection.",
     value: "item-2",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet  Consectetur natus dolores minus quibusdam?",
+    question: "How does the AI assist in learning?",
     answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis necessitatibus maxime quis ipsa vitae cumque quo?",
+      "The AI analyzes each question to provide hints, detailed explanations, and tailored suggestions to help users grasp concepts effectively.",
     value: "item-3",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "Are the past questions and answers updated regularly?",
+    answer:
+      "Yes, we continuously update the question bank to ensure it includes the latest and most relevant past questions and answers.",
     value: "item-4",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur natus?",
+    question: "Is there a subscription fee for using the app?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "The app offers both free and premium plans. Free users can access basic features, while premium subscribers enjoy AI-powered explanations, offline access, and additional study materials.",
     value: "item-5",
   },
 ];
+
 
 export const FAQ = () => {
   return (
@@ -80,7 +81,8 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           rel="noreferrer noopener"
-          href="#"
+          href="mailto:davethsite@gmail.com"
+          target="_blank"
           className="text-primary transition-all border-primary hover:border-b-2"
         >
           Contact us

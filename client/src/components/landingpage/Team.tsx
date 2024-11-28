@@ -24,7 +24,7 @@ interface SociaNetworkslProps {
 const teamList: TeamProps[] = [
   {
     imageUrl: "https://i.pravatar.cc/150?img=35",
-    name: "Emma Smith",
+    name: "Mary Jane",
     position: "Product Manager",
     socialNetworks: [
       {
@@ -43,20 +43,20 @@ const teamList: TeamProps[] = [
   },
   {
     imageUrl: "https://i.pravatar.cc/150?img=60",
-    name: "John Doe",
+    name: "Omokefe Ovie",
     position: "Tech Lead",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
+        url: "https://www.linkedin.com/in/omokefe-ovie/",
       },
       {
         name: "Facebook",
-        url: "https://www.facebook.com/",
+        url: "https://www.facebook.com/omokefe-ovie",
       },
       {
         name: "Instagram",
-        url: "https://www.instagram.com/",
+        url: "https://www.instagram.com/omokefe-ovie",
       },
     ],
   },
@@ -120,8 +120,7 @@ export const Team = () => {
       </h2>
 
       <p className="mt-4 mb-10 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+       Don't worry, this are fake people, we are still solo, still building lowkey, care to join us?
       </p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-10">

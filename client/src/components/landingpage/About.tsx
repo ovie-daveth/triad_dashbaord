@@ -23,11 +23,7 @@ export const About = () => {
                 Company
               </h2>
               <p className="text-xl text-muted-foreground mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                TriadAI is a startup AI company focussed on changing the African educational landscape. We seek to make learning and comprehension easy and fun. We know study is a bit of work, but it must not always be hard. We can be smart about learning and TriadAI seeks to do just that to millons of users
               </p>
             </div>
 

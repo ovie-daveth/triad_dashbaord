@@ -18,7 +18,10 @@ enum PopularPlanType {
 interface PricingProps {
   title: string;
   popular: PopularPlanType;
-  price: number;
+  naira_price: number;
+  naira_yearly: number,
+  dollar_price: number;
+  dollar_yearly: number,
   description: string;
   buttonText: string;
   benefitList: string[];
@@ -28,46 +31,59 @@ const pricingList: PricingProps[] = [
   {
     title: "Free",
     popular: 0,
-    price: 0,
+    naira_price: 0,
+    naira_yearly: 0,
+    dollar_price: 0,
+    dollar_yearly: 0,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+      "Gives you access to the basic features of the app which includes all practice questions.",
     buttonText: "Get Started",
     benefitList: [
-      "1 Team member",
-      "2 GB Storage",
+      "All practice questions",
+      "Hints available for some questions",
       "Upto 4 pages",
-      "Community support",
-      "lorem ipsum dolor",
+      "No AI feature",
     ],
   },
   {
     title: "Premium",
     popular: 1,
-    price: 5,
+    naira_price: 850,
+    naira_yearly: 10200,
+    dollar_price: 1.5,
+    dollar_yearly: 18,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+    "Gives access to all our features including all AI features, view reels for short learning videos",
     buttonText: "Start Free Trial",
     benefitList: [
-      "4 Team member",
-      "4 GB Storage",
-      "Upto 6 pages",
-      "Priority support",
-      "lorem ipsum dolor",
+      "All practice questions",
+      "Hints available for All questions",
+      "Unlimited life span",
+      "Community support",
+      "Priority support",  
+      "View and engage Learning Reels and shorts",
+      "All AI feature",
     ],
   },
   {
-    title: "Enterprise",
+    title: "Gold",
     popular: 0,
-    price: 40,
+    naira_price: 1200,
+    naira_yearly: 14400,
+    dollar_price: 3,
+    dollar_yearly: 36,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+      "Gives access to all our features including all AI features, community support, cretaor features and earning",
     buttonText: "Contact US",
     benefitList: [
-      "10 Team member",
-      "8 GB Storage",
-      "Upto 10 pages",
+     "All practice questions",
+      "Hints available for All questions",
+      "Unlimited life span",
+      "Community support",
       "Priority support",
-      "lorem ipsum dolor",
+      "View and engage Learning Reels and shorts",
+      "Create Learning Reels and shorts - Be a creator and get paid",
+      "All AI feature",
     ],
   },
 ];
@@ -87,8 +103,7 @@ export const Pricing = () => {
         Access
       </h2>
       <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-        reiciendis.
+        Our pricing makes it very affordable to get the best learning experiences
       </h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {pricingList.map((pricing: PricingProps) => (
@@ -100,7 +115,7 @@ export const Pricing = () => {
                 : ""
             }
           >
-            <CardHeader>
+            <CardHeader className="mb-3">
               <CardTitle className="flex item-center justify-between">
                 {pricing.title}
                 {pricing.popular === PopularPlanType.YES ? (
@@ -112,9 +127,27 @@ export const Pricing = () => {
                   </Badge>
                 ) : null}
               </CardTitle>
-              <div>
-                <span className="text-3xl font-bold">${pricing.price}</span>
-                <span className="text-muted-foreground"> /month</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-5">
+                    <div>
+                      <span className="text-3xl font-bold">$ {pricing.dollar_price}</span>
+                      <span className="text-muted-foreground"> /month</span>
+                  </div>
+                  <div>
+                    <span className="text-sm font-light">$ {pricing.dollar_yearly}</span>
+                    <span className="text-muted-foreground"> /year</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-5">
+                    <div>
+                      <span className="text-3xl font-bold">₦ {pricing.naira_price}</span>
+                      <span className="text-muted-foreground"> /month</span>
+                  </div>
+                  <div>
+                    <span className="text-sm font-light">₦ {pricing.naira_yearly}</span>
+                    <span className="text-muted-foreground"> /year</span>
+                  </div>
+                </div>
               </div>
 
               <CardDescription>{pricing.description}</CardDescription>
