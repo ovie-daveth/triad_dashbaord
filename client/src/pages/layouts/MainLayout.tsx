@@ -3,6 +3,8 @@ import Headers from '@/components/headers'
 import React from 'react'
 
 const MainLayout = ({children}: {children: React.ReactNode}) => {
+
+
   return (
     <div className='lg:px-28 lg:py-10 md:px-24 md:py-8 px-5 py-2  '>
         <div className='mb-20'><Headers /></div>

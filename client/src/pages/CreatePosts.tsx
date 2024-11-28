@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { IKUpload } from "imagekitio-react";
+import axios from "axios"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Modal from "@/components/image_modal";
 import { Loader } from "lucide-react";
+import axiosInstance from "@/lib/axiosInstance";
 
 // Define the schema for validation using zod
 const formSchema = z.object({
@@ -102,7 +104,10 @@ const CreatePostForm = () => {
   // Handle form submission
   const onSubmit = async (data: any) => {
     console.log(data); // Handle form data here
-    
+    const response = await axiosInstance.post("/posts", data);
+    if (response){
+      console.log("my response", response)
+    }
   };
 
   return (
