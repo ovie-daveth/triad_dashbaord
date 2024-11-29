@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -17,6 +17,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
+import { useLocation } from "react-router-dom";
 
 interface RouteProps {
   href: string;
@@ -42,7 +43,31 @@ const routeList: RouteProps[] = [
   },
 ];
 
+const dashboard: RouteProps[] = 
+  [
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+    },
+    {
+      href: "/dashboard/submissions",
+      label: "Submissions",
+    },
+    {
+      href: "/dashboard/settings",
+      label: "Settings",
+    },
+  ]
+
 export const Navbar = () => {
+
+  const [path, setPath] = useState(false)
+  const log = useLocation()
+
+  useEffect(() => {
+    const isPath = log.pathname.includes("/dashboard") || log.pathname.includes("/post")
+    setPath(isPath)
+  }, [log])
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
@@ -79,11 +104,22 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    TriadAI
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {routeList.map(({ href, label }: RouteProps) => (
+                  { !path ? 
+                  routeList.map(({ href, label }: RouteProps) => (
+                    <a
+                      rel="noreferrer noopener"
+                      key={label}
+                      href={href}
+                      onClick={() => setIsOpen(false)}
+                      className={buttonVariants({ variant: "ghost" })}
+                    >
+                      {label}
+                    </a>
+                  )) : dashboard.map(({ href, label }: RouteProps) => (
                     <a
                       rel="noreferrer noopener"
                       key={label}
@@ -112,7 +148,18 @@ export const Navbar = () => {
 
           {/* desktop */}
           <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
+            {!path ? routeList.map((route: RouteProps, i) => (
+              <a
+                rel="noreferrer noopener"
+                href={route.href}
+                key={i}
+                className={`text-[17px] ${buttonVariants({
+                  variant: "ghost",
+                })}`}
+              >
+                {route.label}
+              </a>
+            )) : dashboard.map((route: RouteProps, i) => (
               <a
                 rel="noreferrer noopener"
                 href={route.href}
