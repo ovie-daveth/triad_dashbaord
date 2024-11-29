@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { registerUser, findAll,  findById, UpdateUser } from "../models/userModel.js";
 import response from "../views/response.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"; 
 import { verifyPassword } from "../utils/comparePassowrd.js";
 
 
@@ -48,7 +49,13 @@ const UserController = {
         return response.error(res, "Invalid credentials");
       }
 
-      return response.success(res, "You're in, welcome", user);
+      const token = jwt.sign(
+        { id: user.id, email: user.email },  // Payload: user id and email
+        process.env.JWT_SECRET,               // Secret key for signing the token
+        { expiresIn: "2h" }                  // Token expiration time (e.g., 1 hour)
+      );
+
+      return response.success(res, "You're in, welcome", {user, token});
     } catch (error) {
       console.error(error);
       return response.error(res, "Failed to log in user");
