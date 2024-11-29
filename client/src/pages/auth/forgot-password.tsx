@@ -36,7 +36,7 @@ export default function ForgotPassword() {
             <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
               Don't have an account?{' '}
               <Link
-                to='/sign-up'
+                to='/auth/signup'
                 className='underline underline-offset-4 hover:text-primary'
               >
                 Sign up

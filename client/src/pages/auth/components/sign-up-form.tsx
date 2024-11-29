@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
+import { IconBrandFacebook, IconBrandGithub, IconBrandGoogle } from '@tabler/icons-react'
 import { z } from 'zod'
 import {
   Form,
@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
+import { Link } from 'react-router-dom'
 
 interface SignUpFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -125,20 +126,12 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                 className='w-full'
                 type='button'
                 loading={isLoading}
-                leftSection={<IconBrandGithub className='h-4 w-4' />}
+                leftSection={<IconBrandGoogle className='h-4 w-4' />}
               >
-                GitHub
-              </Button>
-              <Button
-                variant='outline'
-                className='w-full'
-                type='button'
-                loading={isLoading}
-                leftSection={<IconBrandFacebook className='h-4 w-4' />}
-              >
-                Facebook
+                Google
               </Button>
             </div>
+            <small className="text-center">Already have an account <Link to="/auth/login" className='text-blue-600 underline'>Sign In</Link></small>
           </div>
         </form>
       </Form>

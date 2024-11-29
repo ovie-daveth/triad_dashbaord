@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
+import { IconBrandFacebook, IconBrandGithub, IconBrandGoogle } from '@tabler/icons-react'
 import {
   Form,
   FormControl,
@@ -80,7 +80,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                   <div className='flex items-center justify-between'>
                     <FormLabel>Password</FormLabel>
                     <Link
-                      to='/forgot-password'
+                      to='/auth/forgot-password'
                       className='text-sm font-medium text-muted-foreground hover:opacity-75'
                     >
                       Forgot password?
@@ -114,11 +114,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 className='w-full'
                 type='button'
                 loading={isLoading}
-                leftSection={<IconBrandGithub className='h-4 w-4' />}
+                leftSection={<IconBrandGoogle className='h-4 w-4' />}
               >
-                GitHub
+                Google
               </Button>
-              <Button
+              {/* <Button
                 variant='outline'
                 className='w-full'
                 type='button'
@@ -126,8 +126,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 leftSection={<IconBrandFacebook className='h-4 w-4' />}
               >
                 Facebook
-              </Button>
+              </Button> */}
             </div>
+            <small className="text-center">Don't have an account <Link to="/auth/signup" className='text-blue-600 underline'>Sign Up</Link></small>
           </div>
         </form>
       </Form>

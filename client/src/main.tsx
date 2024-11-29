@@ -5,6 +5,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './components/theme-provider.tsx'
 import { IKContext } from 'imagekitio-react'
+import { AuthProvider } from "./context/index.jsx"
 
 
 const urlEndpoint = import.meta.env.VITE_IMGKIT_URL;
@@ -32,18 +33,18 @@ const authenticator =  async () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-  <BrowserRouter>
+   <AuthProvider>
    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+  <BrowserRouter>
    <IKContext
         urlEndpoint={urlEndpoint}
         publicKey={publicKey}
         authenticator={authenticator}
       >
-
     <App />
-
   </IKContext>
-    </ThemeProvider>
   </BrowserRouter>
+  </ThemeProvider>
+   </AuthProvider>
   </StrictMode>,
 )
