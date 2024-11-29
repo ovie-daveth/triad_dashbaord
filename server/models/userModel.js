@@ -10,9 +10,7 @@ const prisma = new PrismaClient();
 
   //Find all Users
   export const findAll = async () => {
-    return await prisma.user.findMany({
-      include: { posts: true },
-    });
+    return await prisma.user.findMany();
   }
   // Fetch user by ID
   export const findById = async (id) => {
