@@ -6,38 +6,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Layout } from './layouts/dashboardLayout'
-import { TopNav } from '@/components/dashboard/top-nav'
-import { Search } from '@/components/dashboard/search'
-import ToggleTheme from '@/components/toggletheme'
-import { UserNav } from '@/components/dashboard/user-nav'
-import { Button } from '@/components/ui/button'
 import { Overview } from '@/components/dashboard/overview'
 import { RecentSales } from '@/components/dashboard/recent-sales'
+import MainLayout from './layouts/MainLayout'
 
 export default function Dashboard() {
   return (
-    <Layout>
-      {/* ===== Top Heading ===== */}
-      <Layout.Header>
-        <TopNav links={topNav} />
-        <div className='ml-auto flex items-center space-x-4'>
-          <Search />
-          <ToggleTheme  />
-          <UserNav />
-        </div>
-      </Layout.Header>
-
-      {/* ===== Main ===== */}
-      <Layout.Body>
-        <div className='mb-2 flex items-center justify-between space-y-2'>
-          <h1 className='text-2xl font-bold tracking-tight'>
-            {('dashboard')}
-          </h1>
-          <div className='flex items-center space-x-2'>
-            <Button>{('download')}</Button>
-          </div>
-        </div>
+  <MainLayout>
         <Tabs
           orientation='vertical'
           defaultValue='overview'
@@ -182,8 +157,8 @@ export default function Dashboard() {
             </div>
           </TabsContent>
         </Tabs>
-      </Layout.Body>
-    </Layout>
+
+  </MainLayout>
   )
 }
 
