@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 // Create an Axios instance
 const axiosInstance: AxiosInstance = axios.create({
@@ -37,13 +38,16 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       // Server responded with a status outside the range 2xx
       console.error('API error:', error.response.data);
+      toast.error(error.response.data?.message || "An error occurred");
       // You can dispatch global error handling actions or show notifications
     } else if (error.request) {
       // No response received (e.g., network error)
       console.error('Network error:', error.message);
+      toast.error(error.message || "An error occurred");
     } else {
       // General error
       console.error('Error:', error.message);
+      toast.error(error.message || "An error occurred");
     }
     // Optionally, you can also reject the error if you want to handle it in the calling code
     return Promise.reject(error);

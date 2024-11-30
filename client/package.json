@@ -59,6 +59,7 @@
     "react-hook-form": "^7.53.2",
     "react-resizable-panels": "^2.1.7",
     "react-router-dom": "^7.0.1",
+    "react-toastify": "^10.0.6",
     "recharts": "^2.13.3",
     "save": "^2.9.0",
     "sonner": "^1.7.0",

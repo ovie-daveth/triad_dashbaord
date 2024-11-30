@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { RegisterUser } from '@/api/auth'
 
 interface SignUpFormProps extends HTMLAttributes<HTMLDivElement> {}
@@ -46,6 +46,7 @@ const formSchema = z
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,12 +62,21 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     console.log(data)
-    // await RegisterUser(data)
-    // .then((data) => {
-    //   console.log(data)
-    //   setIsLoading(false)
-    // })
-    // .catch((e) => console.log(e))
+    const formData = {
+      name: data.name,
+      email: data.email,
+      password: data.password
+    }
+    await RegisterUser(formData)
+    .then((data) => {
+      console.log(data)
+      setIsLoading(false)
+      navigate("/auth/login")
+    })
+    .catch((e) => {
+      console.log("error", e)
+      setIsLoading(false)
+    })
    
   }
 
@@ -75,6 +85,19 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className='grid gap-2'>
+          <FormField
+              control={form.control}
+              name='name'
+              render={({ field }) => (
+                <FormItem className='space-y-1'>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder='John Doe' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name='email'

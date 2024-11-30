@@ -115,3 +115,11 @@
     @apply bg-background text-foreground min-h-screen overflow-x-hidden ;
   }
 }
+
+
+.Toastify__toast--success {
+  background-color: #28a745 !important; /* Green background */
+  color: #ffffff !important;           /* White text */
+}
+
+

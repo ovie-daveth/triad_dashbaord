@@ -1,9 +1,12 @@
 import { HTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { IconBrandFacebook, IconBrandGithub, IconBrandGoogle } from '@tabler/icons-react'
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
+
 import {
   Form,
   FormControl,
@@ -16,6 +19,8 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
+import { LoginUser } from '@/api/auth'
+import { X } from 'lucide-react'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -36,6 +41,8 @@ const formSchema = z.object({
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,13 +52,40 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     console.log(data)
 
-    setTimeout(() => {
+    await LoginUser(data)
+    .then((data) => {
+      console.log("login data", data)
       setIsLoading(false)
-    }, 3000)
+      toast({
+        duration: 3000,
+        title: "Logged In succesfully",
+        description: "Redirecting to dashboard",
+        action: (
+          <ToastAction altText="cancel"><X /></ToastAction>
+        ),
+      })
+     setTimeout(() => {
+      navigate("/dashboard")
+     }, 3000)
+    })
+    .catch((error) => {
+      console.log("error login", error)
+      setIsLoading(false)
+      if (error.response) {
+        toast({
+          duration: 3000,
+          variant: "destructive",
+          title: "An error occurred",
+          description: error.response.data?.message || "Something went wrong",
+        });
+      } else {
+        setIsLoading(false)
+      }
+    })
   }
 
   return (

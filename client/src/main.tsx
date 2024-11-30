@@ -6,6 +6,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './components/theme-provider.tsx'
 import { IKContext } from 'imagekitio-react'
 import { AuthProvider } from "./context/AuthContext"
+import { Toaster } from './components/ui/toaster.tsx'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const urlEndpoint = import.meta.env.VITE_IMGKIT_URL;
@@ -42,6 +45,19 @@ createRoot(document.getElementById('root')!).render(
         authenticator={authenticator}
       >
     <App />
+    <Toaster />
+    <ToastContainer 
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark" 
+    />
   </IKContext>
   </BrowserRouter>
   </ThemeProvider>
