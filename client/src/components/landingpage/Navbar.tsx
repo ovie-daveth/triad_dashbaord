@@ -30,7 +30,7 @@ const routeList: RouteProps[] = [
     label: "Features",
   },
   {
-    href: "/dashboard",
+    href: "/interface",
     label: "Data Entry",
   },
   {

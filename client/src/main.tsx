@@ -5,7 +5,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './components/theme-provider.tsx'
 import { IKContext } from 'imagekitio-react'
-import { AuthProvider } from "./context/index.jsx"
+import { AuthProvider } from "./context/AuthContext"
 
 
 const urlEndpoint = import.meta.env.VITE_IMGKIT_URL;

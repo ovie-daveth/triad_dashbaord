@@ -1,0 +1,16 @@
+import axiosInstance from "@/lib/axiosInstance";
+
+export const RegisterUser =  async (req: any) => {
+  try {
+      const response = await axiosInstance.post('/users', req);
+
+      if (!response) {
+          throw new Error(`Request failed. Please try again`);
+      }
+
+      console.log("response", response)
+
+  } catch (error: any) {
+      throw new Error(`Authentication request failed: ${error.message}`);
+  }
+};

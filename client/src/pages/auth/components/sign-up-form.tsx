@@ -16,11 +16,15 @@ import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
+import { RegisterUser } from '@/api/auth'
 
 interface SignUpFormProps extends HTMLAttributes<HTMLDivElement> {}
 
 const formSchema = z
   .object({
+    name: z
+    .string()
+    .min(5, { message: 'Please enter your full name' }),
     email: z
       .string()
       .min(1, { message: 'Please enter your email' })
@@ -49,16 +53,21 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       email: '',
       password: '',
       confirmPassword: '',
+      name: ""
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     console.log(data)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    // await RegisterUser(data)
+    // .then((data) => {
+    //   console.log(data)
+    //   setIsLoading(false)
+    // })
+    // .catch((e) => console.log(e))
+   
   }
 
   return (
