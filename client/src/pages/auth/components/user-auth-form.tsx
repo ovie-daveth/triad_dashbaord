@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
@@ -21,6 +21,7 @@ import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
 import { LoginUser } from '@/api/auth'
 import { X } from 'lucide-react'
+import { AuthContext } from '@/context/AuthContext'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -41,6 +42,7 @@ const formSchema = z.object({
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate()
   const { toast } = useToast()
 
@@ -60,6 +62,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     .then((data) => {
       console.log("login data", data)
       setIsLoading(false)
+      login()
       toast({
         duration: 3000,
         title: "Logged In succesfully",
