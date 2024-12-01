@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,10 +14,12 @@ import {
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "@/context/AuthContext";
+import { Button } from "../custom/button";
 
 interface RouteProps {
   href: string;
@@ -63,12 +65,20 @@ export const Navbar = () => {
 
   const [path, setPath] = useState(false)
   const log = useLocation()
+  const {logout} = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const isPath = log.pathname.includes("/dashboard") || log.pathname.includes("/post")
     setPath(isPath)
   }, [log])
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const Logout = () => {
+    logout()
+    navigate("/auth/login")
+  }
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
@@ -173,7 +183,7 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:flex gap-2">
+          <div className="hidden md:flex gap-2 items-center">
             <a
               rel="noreferrer noopener"
               href="https://github.com/leoMirandaa/shadcn-landing-page.git"
@@ -185,6 +195,7 @@ export const Navbar = () => {
             </a>
 
             <ModeToggle />
+            <LogOut size={12} onClick={Logout} className="cursor-pointer" />
           </div>
         </NavigationMenuList>
       </NavigationMenu>

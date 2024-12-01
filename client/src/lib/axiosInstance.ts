@@ -15,7 +15,7 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // Add authorization token to request if available
-    const token = sessionStorage.getItem('authToken');  // Replace with your token storage logic
+    const token = sessionStorage.getItem('token');  // Replace with your token storage logic
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

@@ -60,7 +60,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     await LoginUser(data)
     .then((data) => {
-      console.log("login data", data)
+      console.log("login data", data.data.data.token)
+      sessionStorage.setItem("token", data.data?.data?.token)
       setIsLoading(false)
       login()
       toast({

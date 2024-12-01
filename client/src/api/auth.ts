@@ -9,6 +9,7 @@ export const RegisterUser =  async (req: any) => {
       }
 
       console.log("response", response)
+      return response
 
   } catch (error: any) {
       throw new Error(`Authentication request failed: ${error.message}`);
@@ -24,6 +25,7 @@ export const LoginUser =  async (req: any) => {
         }
   
         console.log("response", response)
+        return response
   
     } catch (error: any) {
         throw new Error(`Authentication request failed: ${error.message}`);

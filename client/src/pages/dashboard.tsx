@@ -13,6 +13,7 @@ import naira from "@/assets/naira.svg"
 import { useNavigate } from 'react-router-dom'
 import CreatePostForm from './CreatePosts'
 import Submissions from './Submissions'
+import CreateInterface from '@/components/CreateInterface'
 
 
 export default function Dashboard() {
@@ -28,6 +29,7 @@ export default function Dashboard() {
             <TabsList>
               <TabsTrigger value='overview'>{('overview')}</TabsTrigger>
               <TabsTrigger value='submit'>{('submissions')}</TabsTrigger>
+              <TabsTrigger value='create'>{('Submit a question')}</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value='overview' className='space-y-4'>
@@ -99,32 +101,11 @@ export default function Dashboard() {
           <TabsContent value='submit' className='space-y-4'>
            <Submissions />
           </TabsContent>
-
+          <TabsContent value='create' className='space-y-4'>
+           <CreateInterface />
+          </TabsContent>
         </Tabs>
 
   </MainLayout>
   )
 }
-
-const topNav = [
-  {
-    title: 'dashboard.overview',
-    href: 'dashboard/overview',
-    isActive: true,
-  },
-  {
-    title: 'dashboard.customers',
-    href: 'dashboard/customers',
-    isActive: false,
-  },
-  {
-    title: 'dashboard.products',
-    href: 'dashboard/products',
-    isActive: false,
-  },
-  {
-    title: 'dashboard.settings',
-    href: 'dashboard/settings',
-    isActive: false,
-  },
-]

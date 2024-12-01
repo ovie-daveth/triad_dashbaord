@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "./layouts/MainLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { IKUpload } from "imagekitio-react";
-import axios from "axios"
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +43,28 @@ const CreatePostForm = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setIsLoading] = useState(false);
   const [imgUrl, setImgUrl] = useState<string[]>([]);
+
+  const [searchParams] = useSearchParams();
+
+  // Retrieve individual query parameters
+  useEffect(() => {
+    // Retrieve query parameters
+    const type = searchParams.get('type');
+    const subject = searchParams.get('subject');
+    const year = searchParams.get('year');
+
+    // Store them in local storage
+    if (type) localStorage.setItem('type', type);
+    if (subject) localStorage.setItem('subject', subject);
+    if (year) localStorage.setItem('year', year);
+
+    console.log('Query params stored in local storage!');
+  }, [searchParams]);
+
+  // Read values from local storage (optional)
+  const storedType = localStorage.getItem('type');
+  const storedSubject = localStorage.getItem('subject');
+  const storedYear = localStorage.getItem('year');
 
   function generateRandomString(length = 10) {
     const characters =
@@ -99,6 +121,12 @@ const CreatePostForm = () => {
   // Initialize the form with the resolver for zod validation
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      subject: storedSubject,
+      examType: storedType,
+      examYear: storedYear,
+      diagrams: [], // Initialize diagrams as an empty array
+    },
   });
 
   // Handle form submission
@@ -133,6 +161,7 @@ const CreatePostForm = () => {
                       <FormLabel className="lg:text-xl">Exam Type</FormLabel>
                       <FormControl>
                         <Input
+                        disabled
                           className="h-20 rounded-lg"
                           placeholder="Exam Type"
                           {...field}
@@ -152,6 +181,7 @@ const CreatePostForm = () => {
                       <FormLabel className="lg:text-xl">Exam Year</FormLabel>
                       <FormControl>
                         <Input
+                        disabled
                           className="h-20 rounded-lg"
                           placeholder="Exam Year"
                           {...field}
@@ -169,6 +199,7 @@ const CreatePostForm = () => {
                       <FormLabel className="lg:text-xl">Subject</FormLabel>
                       <FormControl>
                         <Input
+                        disabled
                           className="h-20 rounded-lg"
                           placeholder="Subject"
                           {...field}
