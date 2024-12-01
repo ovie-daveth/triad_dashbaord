@@ -19,8 +19,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Modal from "@/components/image_modal";
-import { Loader } from "lucide-react";
+import { Loader, X } from "lucide-react";
 import axiosInstance from "@/lib/axiosInstance";
+import { getProfile } from "@/api/auth";
+import { toast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 // Define the schema for validation using zod
 const formSchema = z.object({
@@ -38,27 +41,59 @@ const formSchema = z.object({
   content: z.string().min(5, { message: "Content is required" }),
 });
 
+interface userInterface {
+  id: number, email: string, name: string, postCount: number
+}
 const CreatePostForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setIsLoading] = useState(false);
   const [imgUrl, setImgUrl] = useState<string[]>([]);
+  const [user, setUser] = useState<userInterface>({
+    name: "",
+    email: "",
+    id: 0,
+    postCount: 0
+  })
 
   const [searchParams] = useSearchParams();
 
   // Retrieve individual query parameters
   useEffect(() => {
     // Retrieve query parameters
-    const type = searchParams.get('type');
-    const subject = searchParams.get('subject');
-    const year = searchParams.get('year');
+    const type = searchParams.get("type");
+    const subject = searchParams.get("subject");
+    const year = searchParams.get("year");
 
     // Store them in local storage
-    if (type) localStorage.setItem('type', type);
-    if (subject) localStorage.setItem('subject', subject);
-    if (year) localStorage.setItem('year', year);
+    if (type) localStorage.setItem("type", type);
+    if (subject) localStorage.setItem("subject", subject);
+    if (year) localStorage.setItem("year", year);
 
-    console.log('Query params stored in local storage!');
+    // Update form values dynamically
+    form.reset({
+      subject: subject || "",
+      examType: type || "",
+      examYear: year || "",
+      diagrams: [],
+      options: [],
+      correctOption: "",
+      explanation: "",
+      question: "",
+      hints: "",
+      content: ""
+    });
+
+    const getUserId = async() => {
+      const response = await getProfile()
+      if (response){
+        console.log("user", response)
+        const userResponse = response.data.data;
+        console.log("userResponse", userResponse)
+        setUser(userResponse)
+      }
+    }
+    getUserId()
   }, [searchParams]);
 
   // Read values from local storage (optional)
@@ -126,17 +161,49 @@ const CreatePostForm = () => {
       examType: storedType,
       examYear: storedYear,
       diagrams: [], // Initialize diagrams as an empty array
+      options: [],
+      correctOption: '',
+      explanation: '',
+      question: '',
+      hints: "",
+      content: ""
     },
   });
 
   // Handle form submission
   const onSubmit = async (data: any) => {
     console.log(data); // Handle form data here
-    const response = await axiosInstance.post("/posts", data);
+    const formData = {
+      ...data,
+      userId: user?.id
+    }
+
+    console.log("submited", formData)
+    const response = await axiosInstance.post("/posts", formData);
     if (response){
       console.log("my response", response)
+      toast({
+        duration: 2000,
+        title: "Added one more question",
+        description: `Question has been added to ${storedType} for ${storedSubject}, ${storedYear}`,
+        action: (
+          <ToastAction altText="cancel"><X /></ToastAction>
+        ),
+      })
+
+     console.log("values",form.getValues())
+     form.setValue("question", "");
+     form.setValue("options", []);
+     form.setValue("diagrams", []);
+     form.setValue("correctOption", "");
+     form.setValue("explanation", "");
+     form.setValue("content", "");
+     form.setValue("hints", "");
+     setImgUrl([])
     }
   };
+
+  console.log(imgUrl)
 
   return (
     <MainLayout>
