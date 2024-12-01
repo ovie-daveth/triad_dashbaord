@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { SelectDiv } from './custom/selectdiv';
 import { ExamType, subject, year } from '@/lib/data';
 import { Button } from './custom/button';

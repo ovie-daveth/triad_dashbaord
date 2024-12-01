@@ -4,9 +4,9 @@ import SubmissionCard from '@/components/SubmissionCard'
 import { dataProp } from '@/interface/post';
 import { data, ExamType, subject, year } from '@/lib/data';
 import { useEffect, useState } from 'react'
+import MainLayout from './layouts/MainLayout';
 
-
-  const Submissions = () => {
+  const SubmissionPage = () => {
     const [filteredData, setFilteredData] = useState<dataProp[]>([]);
     const [selectedExamType, setSelectedExamType] = useState<string>('');
     const [selectedSubject, setSelectedSubject] = useState<string>('');
@@ -35,7 +35,8 @@ import { useEffect, useState } from 'react'
     };
   
     return (
-      <div>
+     <MainLayout>
+         <div>
         <div className="flex justify-between items-start mb-8">
           <h1 className="md:text-xl text-lg font-bold">Submissions</h1>
           <div className="flex flex-col gap-2 items-end">
@@ -80,8 +81,9 @@ import { useEffect, useState } from 'react'
           <p>Nothing found</p>
         )}
       </div>
+     </MainLayout>
     );
   };
   
 
-export default Submissions
+export default SubmissionPage

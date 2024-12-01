@@ -11,7 +11,6 @@ import { RecentSales } from '@/components/dashboard/recent-sales'
 import MainLayout from './layouts/MainLayout'
 import naira from "@/assets/naira.svg"
 import { useNavigate } from 'react-router-dom'
-import CreatePostForm from './CreatePosts'
 import Submissions from './Submissions'
 import CreateInterface from '@/components/CreateInterface'
 

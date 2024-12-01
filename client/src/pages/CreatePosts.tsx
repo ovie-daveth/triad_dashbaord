@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "./layouts/MainLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -112,6 +112,25 @@ const CreatePostForm = () => {
     return result;
   }
 
+
+    // Initialize the form with the resolver for zod validation
+    const form = useForm({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        subject: storedSubject || "",
+        examType: storedType || "",
+        examYear: storedYear || "",
+        diagrams: [] as string[], // Ensure this is an array of strings
+    options: [] as string[], 
+        correctOption: '',
+        explanation: '',
+        question: '',
+        hints: "",
+        content: ""
+      },
+    });
+    
+
   // Success callback when the image is uploaded
   const onSuccess = (res: any) => {
     console.log("Upload Success", res.url);
@@ -153,22 +172,7 @@ const CreatePostForm = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  // Initialize the form with the resolver for zod validation
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      subject: storedSubject,
-      examType: storedType,
-      examYear: storedYear,
-      diagrams: [], // Initialize diagrams as an empty array
-      options: [],
-      correctOption: '',
-      explanation: '',
-      question: '',
-      hints: "",
-      content: ""
-    },
-  });
+
 
   // Handle form submission
   const onSubmit = async (data: any) => {
@@ -324,7 +328,7 @@ const CreatePostForm = () => {
               <FormField
                 control={form.control}
                 name="diagrams"
-                render={({ field }) => (
+                render={(_) => (
                   <FormItem>
                     <FormLabel className="lg:text-xl block">Diagrams</FormLabel>
                     <FormControl>

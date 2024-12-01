@@ -19,7 +19,6 @@ import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/AuthContext";
-import { Button } from "../custom/button";
 
 interface RouteProps {
   href: string;

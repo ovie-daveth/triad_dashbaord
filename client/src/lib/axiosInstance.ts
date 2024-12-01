@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       // Server responded with a status outside the range 2xx
       console.error('API error:', error.response.data);
-      toast.error(error.response.data?.message || "An error occurred");
+      toast.error(error.response.data as string || "An error occurred");
       // You can dispatch global error handling actions or show notifications
     } else if (error.request) {
       // No response received (e.g., network error)

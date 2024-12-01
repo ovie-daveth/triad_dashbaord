@@ -1,41 +1,48 @@
-import {createContext, useEffect, useState} from "react"
+import { createContext, useEffect, useState, ReactNode } from "react";
 
+// Define the shape of the AuthContext
+interface AuthContextType {
+  isAuthenticated: boolean;
+  login: () => void;
+  logout: () => void;
+}
 
-const AuthContext = createContext({
-    isAuthenticated: false,
-    login: () => {},
-    logout: () => {},
-  });
+// Provide default values for the context
+const AuthContext = createContext<AuthContextType>({
+  isAuthenticated: false,
+  login: () => {},
+  logout: () => {},
+});
 
-  const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+interface AuthProviderProps {
+  children: ReactNode; // This explicitly types the children prop
+}
 
-    useEffect(() => {
-        const storedAuthStatus = localStorage.getItem("isAuthenticated");
-        if (storedAuthStatus === "true") {
-          setIsAuthenticated(true);
-        }
-      }, []);
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-      const login = () => {
-        setIsAuthenticated(true);
-        localStorage.setItem("isAuthenticated", "true"); // Store the status in localStorage
-      };
-    
-      // Logout function to update the authentication state
-      const logout = () => {
-        setIsAuthenticated(false);
-        localStorage.removeItem("isAuthenticated"); // Remove the status from localStorage
-      };
+  useEffect(() => {
+    const storedAuthStatus = localStorage.getItem("isAuthenticated");
+    if (storedAuthStatus === "true") {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
-      return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-          {children}
-        </AuthContext.Provider>
-      );
-      
-  }
+  const login = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem("isAuthenticated", "true");
+  };
 
+  const logout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
+  };
 
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 export { AuthContext, AuthProvider };
