@@ -19,6 +19,7 @@ const authMiddleware = (req, res, next) => {
     // Verify the token using the secret key
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log("decoded", decoded)
     // Attach user info to the request object (this can be used in subsequent routes)
     req.user = decoded;  // `decoded` contains the payload of the token (user's ID, email, etc.)
 

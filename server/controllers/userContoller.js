@@ -77,8 +77,14 @@ const UserController = {
   // Get all posts
   getUser: async (req, res) => {
     try {
-      const user = await findById(req.params.id);
-      return response.success(res, "User fetched successfully", user);
+      const user = await findById(req.user.id);
+      const renderedUser = {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        postCount: user.postCount
+      }
+      return response.success(res, "User fetched successfully", renderedUser);
     } catch (error) {
       console.error(error);
       return response.error(res, "Failed to fetch user");
