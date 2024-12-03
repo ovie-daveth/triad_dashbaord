@@ -14,6 +14,9 @@ import "react-toastify/dist/ReactToastify.css";
 const urlEndpoint = import.meta.env.VITE_IMGKIT_URL;
 const publicKey = import.meta.env.VITE_PUBLIC_IMGKITIO_KEY;
 
+if (typeof global === 'undefined') {
+  window.global = window;
+}
 
 const authenticator =  async () => {
   try {

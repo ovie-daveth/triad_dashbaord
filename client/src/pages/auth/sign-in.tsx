@@ -1,18 +1,8 @@
 import { LogoIcon } from '@/components/landingpage/Icons'
 import { UserAuthForm } from './components/user-auth-form'
 import ViteLogo from '@/assets/looking-ahead.png'
-import { useContext } from 'react';
-import { AuthContext } from '@/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
-
-  const { isAuthenticated } = useContext(AuthContext);
-  const navigate = useNavigate()
-
-  if (isAuthenticated){
-    navigate("/dashboard")
-  }
 
   return (
     <>

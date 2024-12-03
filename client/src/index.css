@@ -121,5 +121,12 @@
   background-color: #28a745 !important; /* Green background */
   color: #ffffff !important;           /* White text */
 }
-
-
+#rdw-wrapper-9416 > div.rdw-editor-toolbar.toolbarClassName > div.rdw-block-wrapper > div {
+  color: black;
+}
+#rdw-wrapper-9416 > div.rdw-editor-toolbar.toolbarClassName > div.rdw-fontsize-wrapper{
+  color: black;
+}
+#rdw-wrapper-9416 > div.rdw-editor-toolbar.toolbarClassName > div.rdw-fontfamily-wrapper{
+  color: black;
+}

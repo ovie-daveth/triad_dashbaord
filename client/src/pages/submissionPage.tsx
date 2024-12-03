@@ -2,23 +2,41 @@ import { Button } from '@/components/custom/button'
 import { SelectDiv } from '@/components/custom/selectdiv'
 import SubmissionCard from '@/components/SubmissionCard'
 import { dataProp } from '@/interface/post';
-import { data, ExamType, subject, year } from '@/lib/data';
+import { ExamType, subject, year } from '@/lib/data';
 import { useEffect, useState } from 'react'
 import MainLayout from './layouts/MainLayout';
+import { GetPosts } from '@/api/posts';
 
   const SubmissionPage = () => {
+    const [data, setData] = useState<dataProp[]>([])
     const [filteredData, setFilteredData] = useState<dataProp[]>([]);
     const [selectedExamType, setSelectedExamType] = useState<string>('');
     const [selectedSubject, setSelectedSubject] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [visibleItems, setVisibleItems] = useState(4);
   
+    const getPost = async() => {
+          const response = await GetPosts();
+          if (response){
+            console.log("posts", response.data.data)
+            setData(response?.data?.data)
+
+          }
+    }
+
     useEffect(() => {
-      const filterData = data.filter((item) => {
+     getPost()
+
+     console.log("filter", filteredData)
+    }, [])
+
+
+    useEffect(() => {
+      const filterData = data.filter((item: dataProp) => {
         return (
           (selectedExamType ? item.examType === selectedExamType : true) &&
           (selectedSubject ? item.subject === selectedSubject : true) &&
-          (selectedYear ? item.time === selectedYear : true)
+          (selectedYear ? item.examYear === selectedYear : true)
         );
       });
   

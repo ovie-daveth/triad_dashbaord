@@ -60,3 +60,32 @@
       }
     }
   } */
+
+
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .toolbar button {
+    padding: 8px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .toolbar button:hover {
+    background-color: #0056b3;
+  }
+  
+  .editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+    border-radius: 4px;
+  }
+  
+  

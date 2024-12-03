@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { ChevronsLeftRight, Edit, Trash2 } from 'lucide-react'
+import { dataProp } from '@/interface/post'
+import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
-
-interface dataProp {
-    id: number,
-    examType: string,
-      subject: string,
-      title: string,
-      explanation: string,
-      options: string[],
-      correct_option: string,
-      time: string
-}
 
 type Prop = {
     data: dataProp
@@ -20,15 +13,16 @@ type Prop = {
 const SubmissionCard = ({data}: Prop) => {
 
     const [openOptions, setOpenOptions] = useState(false)
+
   return (
     <Card className='min-h-[120px]'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
             <CardTitle>{(`${data.subject}`)}</CardTitle>
-            <small className='text-sm text-gray-500'>{data.time}</small>
+            <small className='text-sm text-gray-500'>{data.examYear}</small>
         </CardHeader>
         <CardContent className='pl-2 px-6 mt-4'>
             <div className='flex flex-col gap-1'>
-                <h1>{data.title}</h1>
+                <h1>{data.question}</h1>
                <div className='flex items-start justify-between mt-3 w-full'>
                <div className='relative w-[80%]'>
                     <button onClick={() => setOpenOptions(!openOptions)} className='flex items-center gap-2 mb-2 text-lg font-semibold text-gray-500'>
@@ -45,10 +39,13 @@ const SubmissionCard = ({data}: Prop) => {
                 </div>
                 <div className='flex items-center gap-3 text-gray-500 w-[20%] '>
                     <p className='font-semibold'>Answer</p>
-                    <p className='uppercase'>{data.correct_option}</p>
+                    <p className='uppercase'>{data.correctOption}</p>
                 </div>
                </div>
-               <p>{data.explanation}</p>
+               <div dangerouslySetInnerHTML={{ __html: data.explanation }} />
+               {/* <ReactMarkdown rehypePlugins={[rehypeKatex]}>
+               {data.explanation}
+                </ReactMarkdown> */}
             </div>
         </CardContent>
         <CardFooter>

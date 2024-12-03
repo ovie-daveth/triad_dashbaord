@@ -48,8 +48,8 @@ export function RecentSales() {
   return (
     <div className='space-y-8'>
      {
-      data.map((item) => (
-        <div className='flex items-center gap-4'>
+      data.map((item, index) => (
+        <div key={index} className='flex items-center gap-4'>
         <Avatar className='h-9 w-9'>
           <AvatarImage src='/avatars/01.png' alt='Avatar' />
           <AvatarFallback>{item.subject.charAt(0)}</AvatarFallback>

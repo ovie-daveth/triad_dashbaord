@@ -11,7 +11,6 @@ import { Pricing } from "@/components/landingpage/Pricing";
 import { ScrollToTop } from "@/components/landingpage/ScrollToTop";
 import { Services } from "@/components/landingpage/Services";
 import { Sponsors } from "@/components/landingpage/Sponsors";
-import { Team } from "@/components/landingpage/Team";
 function LandingPage() {
   return (
     <div>
@@ -25,7 +24,7 @@ function LandingPage() {
       <Services />
       <Cta />
       {/* <Testimonials /> */}
-      <Team />
+      {/* <Team /> */}
       <Pricing />
       <Newsletter />
       <FAQ />

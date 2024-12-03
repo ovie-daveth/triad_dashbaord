@@ -24,6 +24,8 @@ import axiosInstance from "@/lib/axiosInstance";
 import { getProfile } from "@/api/auth";
 import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import Editor from "@/components/Editor";
+import Editor2 from "@/components/Editor2";
 
 // Define the schema for validation using zod
 const formSchema = z.object({
@@ -55,6 +57,8 @@ const CreatePostForm = () => {
     id: 0,
     postCount: 0
   })
+  const [text, setText] = useState("")
+  const [text2, setText2] = useState()
 
   const [searchParams] = useSearchParams();
 
@@ -123,8 +127,8 @@ const CreatePostForm = () => {
         diagrams: [] as string[], // Ensure this is an array of strings
     options: [] as string[], 
         correctOption: '',
-        explanation: '',
-        question: '',
+        explanation: text2 || "",
+        question: text || "",
         hints: "",
         content: ""
       },
@@ -207,7 +211,10 @@ const CreatePostForm = () => {
     }
   };
 
-  console.log(imgUrl)
+  useEffect(() => {
+    console.log("the test", text)
+  }, [text])
+
 
   return (
     <MainLayout>
@@ -286,11 +293,17 @@ const CreatePostForm = () => {
               <FormField
                 control={form.control}
                 name="question"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem>
                     <FormLabel className="lg:text-xl">Question</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Question" {...field} />
+                      <Editor2 {...field} 
+                      setText={(value: string) => {
+                        setText(value);
+                        form.setValue("question", value, { shouldValidate: true });
+                      }}
+                      placeholder="Question goes here" />
+                      {/* <Textarea placeholder="Question" {...field} /> */}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -443,7 +456,13 @@ const CreatePostForm = () => {
                   <FormItem>
                     <FormLabel className="lg:text-xl">Explanation</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Explanation" {...field} />
+                    <Editor2 
+                     setText={(value: string) => {
+                      setText2(value);
+                      form.setValue("explanation", value, { shouldValidate: true });
+                    }}
+                    {...field} placeholder="Explanation"/>
+                      {/* <Textarea placeholder="Explanation" {...field} /> */}
                     </FormControl>
                     <FormDescription>
                       If the past question provides explanation, add it here
