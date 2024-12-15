@@ -39,9 +39,9 @@ const authenticator =  async () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-   <AuthProvider>
    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
   <BrowserRouter>
+  <AuthProvider>
    <IKContext
         urlEndpoint={urlEndpoint}
         publicKey={publicKey}
@@ -62,8 +62,8 @@ createRoot(document.getElementById('root')!).render(
       theme="dark" 
     />
   </IKContext>
+  </AuthProvider>
   </BrowserRouter>
   </ThemeProvider>
-   </AuthProvider>
   </StrictMode>,
 )

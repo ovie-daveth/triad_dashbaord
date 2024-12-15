@@ -11,7 +11,7 @@ const Headers = () => {
         <div className='flex items-center xl:gap-24 lg:gap-20 gap-16'>
             <div className='flex items-center gap-7'>
                 <Link to="/dashboard">Dashboard</Link>
-                <Link to="/create">Submissions</Link>
+                <Link to="/submissions">Submissions</Link>
                 <Link to="/settings">Settings</Link>
             </div>
             <ToggleTheme />

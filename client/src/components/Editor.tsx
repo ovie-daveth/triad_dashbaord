@@ -218,6 +218,7 @@ const EditorComponent = ({editorContent, setEditorContent, placeholder} :Prop) =
       // Get the editor content as JSON and update the state
       const content = editor.getHTML()  // Get HTML content
       setEditorContent(content) 
+      console.log("contet", content)
     }
     const extensions = [
         Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -239,6 +240,7 @@ const EditorComponent = ({editorContent, setEditorContent, placeholder} :Prop) =
 
     return (
         <EditorProvider 
+          editorContainerProps={{ className: 'editor-container' }}
           slotBefore={<MenuBar />} 
           extensions={extensions} 
           content={editorContent}

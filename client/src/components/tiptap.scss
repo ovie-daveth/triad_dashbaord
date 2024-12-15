@@ -88,3 +88,11 @@
       margin: 2rem 0;
     }
   }
+
+.editor-container{
+  @apply min-h-32 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-xl
+} 
+
+.editor-container .tiptap, .editor-container .ProseMirror {
+    @apply min-h-32 px-5 py-2
+}

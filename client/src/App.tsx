@@ -1,4 +1,4 @@
-import {  lazy, Suspense, useContext } from 'react';
+import {  lazy, Suspense, useContext, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 
@@ -15,6 +15,9 @@ const SubmissionPage = lazy(() => import('./pages/submissionPage'));
 function App() {
 
   const { isAuthenticated } = useContext(AuthContext);
+  useEffect(() => {
+    console.log("isLogin", isAuthenticated)
+  }, [])
   
   return (
      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>

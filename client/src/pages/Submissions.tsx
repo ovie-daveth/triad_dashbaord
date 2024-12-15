@@ -1,24 +1,38 @@
+import { GetPosts } from '@/api/posts';
 import { Button } from '@/components/custom/button'
 import { SelectDiv } from '@/components/custom/selectdiv'
 import SubmissionCard from '@/components/SubmissionCard'
 import { dataProp } from '@/interface/post';
-import { data, ExamType, subject, year } from '@/lib/data';
+import { ExamType, subject, year } from '@/lib/data';
 import { useEffect, useState } from 'react'
 
 
   const Submissions = () => {
+    const [data, setData] = useState<dataProp[]>([])
     const [filteredData, setFilteredData] = useState<dataProp[]>([]);
     const [selectedExamType, setSelectedExamType] = useState<string>('');
     const [selectedSubject, setSelectedSubject] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [visibleItems, setVisibleItems] = useState(4);
-  
+    
+
+    const getPost = async () => {
+      const response = await GetPosts()
+      if (response){
+        setData(response.data)
+      }
+    }
     useEffect(() => {
+      getPost()
+    }, [])
+
+    useEffect(() => {
+      console.log("The reponse", data)
       const filterData = data.filter((item) => {
         return (
           (selectedExamType ? item.examType === selectedExamType : true) &&
           (selectedSubject ? item.subject === selectedSubject : true) &&
-          (selectedYear ? item.time === selectedYear : true)
+          (selectedYear ? item.examYear === selectedYear : true)
         );
       });
   
@@ -33,6 +47,11 @@ import { useEffect, useState } from 'react'
     const handleLess = () => {
       setVisibleItems((prev) => Math.max(prev - 4, 4));
     };
+
+    const handleDelete = (id: number) => {
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+    };
+  
   
     return (
       <div>
@@ -65,7 +84,7 @@ import { useEffect, useState } from 'react'
         {filteredData.length > 0 ? (
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {filteredData.slice(0, visibleItems).map((item) => (
-              <SubmissionCard key={item.id} data={item} />
+              <SubmissionCard onDelete={handleDelete} key={item.id} data={item} />
             ))}
             <div className="z-50 flex items-center gap-3 pb-10">
               <Button onClick={handleNext} className='cursor-pointer' disabled={visibleItems >= filteredData.length}>

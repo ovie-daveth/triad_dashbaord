@@ -18,8 +18,8 @@ import { GetPosts } from '@/api/posts';
     const getPost = async() => {
           const response = await GetPosts();
           if (response){
-            console.log("posts", response.data.data)
-            setData(response?.data?.data)
+            console.log("posts", response.data)
+            setData(response?.data)
 
           }
     }
@@ -45,11 +45,15 @@ import { GetPosts } from '@/api/posts';
     
   
     const handleNext = () => {
-      setVisibleItems((prev) => Math.min(prev + 4, filteredData.length));
+      setVisibleItems((prev) => Math.min(prev + 4, filteredData?.length));
     };
   
     const handleLess = () => {
       setVisibleItems((prev) => Math.max(prev - 4, 4));
+    };
+
+    const handleDelete = (id: number) => {
+      setData((prevData) => prevData.filter((item) => item.id !== id));
     };
   
     return (
@@ -81,10 +85,10 @@ import { GetPosts } from '@/api/posts';
             </div>
           </div>
         </div>
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {filteredData.slice(0, visibleItems).map((item) => (
-              <SubmissionCard key={item.id} data={item} />
+              <SubmissionCard key={item.id} data={item} onDelete={handleDelete} />
             ))}
           </div>
         ) : (
@@ -92,7 +96,7 @@ import { GetPosts } from '@/api/posts';
         )}
       </div>
       <div className="z-50 flex items-center gap-3 pb-10 mt-10">
-              <Button onClick={handleNext} className='cursor-pointer' disabled={visibleItems >= filteredData.length}>
+              <Button onClick={handleNext} className='cursor-pointer' disabled={visibleItems >= filteredData?.length}>
                 See more
               </Button>
               <Button onClick={handleLess} disabled={visibleItems <= 4}>

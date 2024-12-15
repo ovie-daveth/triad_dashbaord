@@ -1,18 +1,39 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { ChevronsLeftRight, Edit, Trash2 } from 'lucide-react'
+import { Activity, ChevronsLeftRight, Edit, Trash2, X } from 'lucide-react'
 import { dataProp } from '@/interface/post'
-import ReactMarkdown from 'react-markdown';
-import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
+import { deletePost } from '@/api/posts';
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 
 type Prop = {
-    data: dataProp
+    data: dataProp,
+    onDelete: (id: number) => void;
 }
-const SubmissionCard = ({data}: Prop) => {
+const SubmissionCard = ({data, onDelete}: Prop) => {
 
+    const { toast } = useToast()
     const [openOptions, setOpenOptions] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const HandleDeletePost = async(id: number) => {
+        setLoading(true)
+        const response = await deletePost(id)
+        if (response){
+            toast({
+                duration: 3000,
+                title: "Data deleted",
+                description: "Succesful",
+                action: (
+                  <ToastAction altText="cancel"><X /></ToastAction>
+                ),
+              })
+        onDelete(id)
+        setLoading(false)
+        }
+    }
 
   return (
     <Card className='min-h-[120px]'>
@@ -50,9 +71,9 @@ const SubmissionCard = ({data}: Prop) => {
         </CardContent>
         <CardFooter>
             <div className='flex items-center justify-between gap-3 w-full'>
-               <div className='flex items-center gap-3'>
-                    <button className='text-sm'><Edit size={14} color="gray" /></button>
-                    <button className='text-sm'><Trash2 size={14} color="gray" /></button>
+               <div className='flex items-center gap-3 z-50'>
+                    <button className='text-sm z-50'><Edit size={14} color="gray" /></button>
+                    <button onClick={() => HandleDeletePost(data.id)} className='text-sm z-50'>{loading ? <Activity size={14} color="gray" /> : <Trash2 size={14} color="gray" />}</button>
                </div>
                <p className='text-gray-500'>{data.examType}</p>
             </div>                   

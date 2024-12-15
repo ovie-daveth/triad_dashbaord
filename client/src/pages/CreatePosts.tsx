@@ -19,29 +19,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Modal from "@/components/image_modal";
-import { Loader, X } from "lucide-react";
-import axiosInstance from "@/lib/axiosInstance";
+import { ActivityIcon, Loader, X } from "lucide-react";
 import { getProfile } from "@/api/auth";
 import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import Editor from "@/components/Editor";
-import Editor2 from "@/components/Editor2";
 import EditorComponent from "@/components/Editor";
+import { CreateQuestions } from "@/api/posts";
 
 // Define the schema for validation using zod
 const formSchema = z.object({
   subject: z.string().min(2, { message: "Subject is required" }),
   examType: z.string().min(2, { message: "Exam Type is required" }),
   examYear: z.string().min(4, { message: "Exam Year is required" }),
-  question: z.string().min(5, { message: "Question is required" }),
+  question: z.string().optional(),
   options: z
     .array(z.string())
     .min(2, { message: "At least 2 options are required" }),
   diagrams: z.array(z.string()).optional(),
   correctOption: z.string().min(1, { message: "Correct option is required" }),
   hints: z.string().optional(),
-  explanation: z.string().min(5, { message: "Explanation is required" }),
-  content: z.string().min(5, { message: "Content is required" }),
+  explanation: z.string().optional()
 });
 
 interface userInterface {
@@ -60,9 +57,6 @@ const CreatePostForm = () => {
   })
   const [editorContent, setEditorContent] = useState('')
   const [editorContent2, setEditorContent2] = useState('')
-  const [text, setText] = useState("")
-  const [text2, setText2] = useState()
-
   const [searchParams] = useSearchParams();
 
   // Retrieve individual query parameters
@@ -85,10 +79,9 @@ const CreatePostForm = () => {
       diagrams: [],
       options: [],
       correctOption: "",
-      explanation: "",
-      question: "",
+      explanation: editorContent2 || "",
+      question: editorContent || "",
       hints: "",
-      content: ""
     });
 
     const getUserId = async() => {
@@ -130,10 +123,9 @@ const CreatePostForm = () => {
         diagrams: [] as string[], // Ensure this is an array of strings
     options: [] as string[], 
         correctOption: '',
-        explanation: editorContent2 || "",
-        question: editorContent || "",
-        hints: "",
-        content: ""
+        explanation: editorContent2,
+        question: editorContent,
+        hints: ""
       },
     });
     
@@ -183,45 +175,39 @@ const CreatePostForm = () => {
 
   // Handle form submission
   const onSubmit = async (data: any) => {
-    console.log(data); // Handle form data here
+    setIsLoading(true)
     const formData = {
       ...data,
       userId: user?.id
     }
-
-    console.log("submited", formData)
-    // const response = await axiosInstance.post("/posts", formData);
-    // if (response){
-    //   console.log("my response", response)
-    //   toast({
-    //     duration: 2000,
-    //     title: "Added one more question",
-    //     description: `Question has been added to ${storedType} for ${storedSubject}, ${storedYear}`,
-    //     action: (
-    //       <ToastAction altText="cancel"><X /></ToastAction>
-    //     ),
-    //   })
-
-    //  console.log("values",form.getValues())
-    //  form.setValue("question", "");
-    //  form.setValue("options", []);
-    //  form.setValue("diagrams", []);
-    //  form.setValue("correctOption", "");
-    //  form.setValue("explanation", "");
-    //  form.setValue("content", "");
-    //  form.setValue("hints", "");
-    //  setImgUrl([])
-    // }
+    const response = await CreateQuestions(formData);
+    if (response){
+      toast({
+        duration: 2000,
+        title: "Added one more question",
+        description: `Question has been added to ${storedType} for ${storedSubject}, ${storedYear}`,
+        action: (
+          <ToastAction altText="cancel"><X /></ToastAction>
+        ),
+      })
+      setEditorContent("");
+      setEditorContent2("");
+     form.setValue("question", "");
+     form.setValue("options", []);
+     form.setValue("diagrams", []);
+     form.setValue("correctOption", "");
+     form.setValue("explanation", "");
+     form.setValue("hints", "");
+     setImgUrl([])
+     setIsLoading(false)
+    }
   };
 
-  useEffect(() => {
-    console.log("the test", editorContent)
-  }, [editorContent])
 
 
   return (
     <MainLayout>
-      <div>
+      <div className="pb-28">
         <div className="mb-8">
           <h1 className=" mb-3 text-xl font-bold">Submit Question</h1>
           <p className="t">
@@ -470,22 +456,7 @@ const CreatePostForm = () => {
                 )}
               />
 
-              {/* Content */}
-              <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="lg:text-xl">Content</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Content" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit">Submit</Button>
+              <Button type="submit">{loading ? <ActivityIcon color="gray" size={14} /> : "Submit"}</Button>
             </form>
           </Form>
         </div>
