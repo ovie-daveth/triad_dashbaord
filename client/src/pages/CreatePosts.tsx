@@ -26,6 +26,7 @@ import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Editor from "@/components/Editor";
 import Editor2 from "@/components/Editor2";
+import EditorComponent from "@/components/Editor";
 
 // Define the schema for validation using zod
 const formSchema = z.object({
@@ -57,6 +58,8 @@ const CreatePostForm = () => {
     id: 0,
     postCount: 0
   })
+  const [editorContent, setEditorContent] = useState('')
+  const [editorContent2, setEditorContent2] = useState('')
   const [text, setText] = useState("")
   const [text2, setText2] = useState()
 
@@ -127,8 +130,8 @@ const CreatePostForm = () => {
         diagrams: [] as string[], // Ensure this is an array of strings
     options: [] as string[], 
         correctOption: '',
-        explanation: text2 || "",
-        question: text || "",
+        explanation: editorContent2 || "",
+        question: editorContent || "",
         hints: "",
         content: ""
       },
@@ -187,33 +190,33 @@ const CreatePostForm = () => {
     }
 
     console.log("submited", formData)
-    const response = await axiosInstance.post("/posts", formData);
-    if (response){
-      console.log("my response", response)
-      toast({
-        duration: 2000,
-        title: "Added one more question",
-        description: `Question has been added to ${storedType} for ${storedSubject}, ${storedYear}`,
-        action: (
-          <ToastAction altText="cancel"><X /></ToastAction>
-        ),
-      })
+    // const response = await axiosInstance.post("/posts", formData);
+    // if (response){
+    //   console.log("my response", response)
+    //   toast({
+    //     duration: 2000,
+    //     title: "Added one more question",
+    //     description: `Question has been added to ${storedType} for ${storedSubject}, ${storedYear}`,
+    //     action: (
+    //       <ToastAction altText="cancel"><X /></ToastAction>
+    //     ),
+    //   })
 
-     console.log("values",form.getValues())
-     form.setValue("question", "");
-     form.setValue("options", []);
-     form.setValue("diagrams", []);
-     form.setValue("correctOption", "");
-     form.setValue("explanation", "");
-     form.setValue("content", "");
-     form.setValue("hints", "");
-     setImgUrl([])
-    }
+    //  console.log("values",form.getValues())
+    //  form.setValue("question", "");
+    //  form.setValue("options", []);
+    //  form.setValue("diagrams", []);
+    //  form.setValue("correctOption", "");
+    //  form.setValue("explanation", "");
+    //  form.setValue("content", "");
+    //  form.setValue("hints", "");
+    //  setImgUrl([])
+    // }
   };
 
   useEffect(() => {
-    console.log("the test", text)
-  }, [text])
+    console.log("the test", editorContent)
+  }, [editorContent])
 
 
   return (
@@ -297,12 +300,9 @@ const CreatePostForm = () => {
                   <FormItem>
                     <FormLabel className="lg:text-xl">Question</FormLabel>
                     <FormControl>
-                      <Editor2 {...field} 
-                      setText={(value: string) => {
-                        setText(value);
-                        form.setValue("question", value, { shouldValidate: true });
-                      }}
-                      placeholder="Question goes here" />
+                       <EditorComponent {...field} 
+                        setEditorContent={setEditorContent}
+                        placeholder="Question goes here" /> 
                       {/* <Textarea placeholder="Question" {...field} /> */}
                     </FormControl>
                     <FormMessage />
@@ -456,12 +456,10 @@ const CreatePostForm = () => {
                   <FormItem>
                     <FormLabel className="lg:text-xl">Explanation</FormLabel>
                     <FormControl>
-                    <Editor2 
-                     setText={(value: string) => {
-                      setText2(value);
-                      form.setValue("explanation", value, { shouldValidate: true });
-                    }}
-                    {...field} placeholder="Explanation"/>
+                    <EditorComponent {...field} 
+                        setEditorContent={setEditorContent2}
+                        placeholder="Explanation" /> 
+                    
                       {/* <Textarea placeholder="Explanation" {...field} /> */}
                     </FormControl>
                     <FormDescription>

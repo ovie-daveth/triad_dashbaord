@@ -9,7 +9,7 @@ import { GetPosts } from '@/api/posts';
 
   const SubmissionPage = () => {
     const [data, setData] = useState<dataProp[]>([])
-    const [filteredData, setFilteredData] = useState<dataProp[]>([]);
+    const [filteredData, setFilteredData] = useState<dataProp[]>(data);
     const [selectedExamType, setSelectedExamType] = useState<string>('');
     const [selectedSubject, setSelectedSubject] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
@@ -30,7 +30,6 @@ import { GetPosts } from '@/api/posts';
      console.log("filter", filteredData)
     }, [])
 
-
     useEffect(() => {
       const filterData = data.filter((item: dataProp) => {
         return (
@@ -39,10 +38,11 @@ import { GetPosts } from '@/api/posts';
           (selectedYear ? item.examYear === selectedYear : true)
         );
       });
-  
+    
       setFilteredData(filterData);
-      setVisibleItems(4); // Reset visible items whenever filters change
-    }, [selectedExamType, selectedSubject, selectedYear]);
+      setVisibleItems(4); // Reset visible items whenever filters or data change
+    }, [data, selectedExamType, selectedSubject, selectedYear]);
+    
   
     const handleNext = () => {
       setVisibleItems((prev) => Math.min(prev + 4, filteredData.length));
@@ -81,12 +81,17 @@ import { GetPosts } from '@/api/posts';
             </div>
           </div>
         </div>
-        {filteredData.length > 0 ? (
+        {data.length > 0 ? (
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {filteredData.slice(0, visibleItems).map((item) => (
               <SubmissionCard key={item.id} data={item} />
             ))}
-            <div className="z-50 flex items-center gap-3 pb-10">
+          </div>
+        ) : (
+          <p>Nothing found</p>
+        )}
+      </div>
+      <div className="z-50 flex items-center gap-3 pb-10 mt-10">
               <Button onClick={handleNext} className='cursor-pointer' disabled={visibleItems >= filteredData.length}>
                 See more
               </Button>
@@ -94,11 +99,6 @@ import { GetPosts } from '@/api/posts';
                 See Less
               </Button>
             </div>
-          </div>
-        ) : (
-          <p>Nothing found</p>
-        )}
-      </div>
      </MainLayout>
     );
   };

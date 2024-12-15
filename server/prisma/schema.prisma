@@ -36,7 +36,6 @@ model Post {
   correctOption  String?
   hints          String?
   explanation    String?
-  content        String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
